@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private CameraHelper cameraHelper;
     private int cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private SurfaceView surfaceView;
+    private String filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +71,12 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private void initCamera() {
         Utils.copyAssets(this,"lbpcascade_frontalface.xml");
-        String filePath = new File(Environment.getExternalStorageDirectory(), "lbpcascade_frontalface.xml").getAbsolutePath();
+        filePath = new File(Environment.getExternalStorageDirectory(), "lbpcascade_frontalface.xml").getAbsolutePath();
         openCVJni.init(filePath);
         surfaceView.getHolder().addCallback(this);
         cameraHelper = new CameraHelper(cameraId);
         cameraHelper.setPreviewCallback(this);
         cameraHelper.setPreviewDisplay(surfaceView.getHolder());
-        cameraHelper.startPreview();
     }
 
     @Override
@@ -102,16 +102,22 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     protected void onResume() {
         super.onResume();
-//        if (cameraHelper!=null){
-//            cameraHelper.startPreview();
-//        }
+        if (openCVJni!=null){
+            openCVJni.init(filePath);
+        }
+        if (cameraHelper!=null){
+            cameraHelper.startPreview();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        if (cameraHelper!=null){
-//            cameraHelper.stopPreview();
-//        }
+        if (cameraHelper!=null){
+            cameraHelper.stopPreview();
+        }
+        if (openCVJni!=null){
+            openCVJni.release();
+        }
     }
 }

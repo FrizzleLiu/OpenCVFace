@@ -73,7 +73,7 @@ public class CameraHelper implements Camera.PreviewCallback {
     }
 
     public void stopPreview() {
-        if (mCamera == null){
+        if (mCamera != null){
             //预览数据回调接口
             mCamera.setPreviewCallback(null);
             //停止预览

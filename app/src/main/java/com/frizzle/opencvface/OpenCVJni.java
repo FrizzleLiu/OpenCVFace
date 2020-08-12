@@ -17,4 +17,6 @@ public class OpenCVJni {
     public native void postData(byte[] data, int windowWidth, int windowHeight, int cameraId);
 
     public native void setSurface(Surface surface) ;
+
+    public native void release();
 }

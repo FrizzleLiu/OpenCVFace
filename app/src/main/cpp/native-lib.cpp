@@ -130,3 +130,13 @@ Java_com_frizzle_opencvface_OpenCVJni_setSurface(JNIEnv *env, jobject thiz, jobj
     }
     window = ANativeWindow_fromSurface(env, surface);
 }
+//释放检测器 追踪器
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_frizzle_opencvface_OpenCVJni_release(JNIEnv *env, jobject thiz) {
+    if (tracker) {
+        tracker->stop();
+        delete tracker;
+        tracker = 0;
+    }
+}
