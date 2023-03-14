@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private void initCamera() {
         Utils.copyAssets(this,"lbpcascade_frontalface.xml");
-        filePath = new File(Environment.getExternalStorageDirectory(), "lbpcascade_frontalface.xml").getAbsolutePath();
+        filePath = new File(getCacheDir(), "lbpcascade_frontalface.xml").getAbsolutePath();
         openCVJni.init(filePath);
         surfaceView.getHolder().addCallback(this);
         cameraHelper = new CameraHelper(cameraId);

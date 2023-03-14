@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class Utils {
     public static void copyAssets(Context context, String path) {
         File model = new File(path);
-        File file = new File(Environment.getExternalStorageDirectory(), model.getName());
+        File file = new File(context.getCacheDir(), model.getName());
         if (file.exists()) {
             file.delete();
         }
